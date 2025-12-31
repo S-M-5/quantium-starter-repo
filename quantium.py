@@ -51,4 +51,23 @@ def region_filter(selected_region):
     fig = plt.line(filtered_df, x='date', y='sales')
     return fig
 
-app.run(debug=True)
+
+# Task 5
+def test_header(dash_duo):
+    dash_duo.start_server(app)
+    header = dash_duo.find_element("h1")
+    assert header.text == "Pink Morsel Sales"
+
+def test_graph(dash_duo):
+    dash_duo.start(app)
+    graph = dash_duo.find_element("graph")
+    assert graph is not None
+
+def test_region_filter(dash_duo):
+    dash_duo.start_server(app)
+    radio_items = dash_duo.find_element("region-filter")
+    assert radio_items is not None
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
